@@ -1,30 +1,44 @@
+#!/usr/bin/env python3
 import pygame
+import board
 from pygame.locals import *
- 
 
 class Game:
-    
     def __init__(self):
         pygame.init()
-        vec = pygame.math.Vector2  # 2 for two dimensional
+        self._color = pygame.Color(255,255,0)
         self._height = 800
         self._width = 800
         self._square = []
-        for i in range(63):
-            row_pixel = 0
-            column_pixel = 0
-            #use rect.draw instead
+        self._pieces = []
+        self._displaysurface = pygame.display.set_mode((self._width, self._height))
+
+    def draw_board(self):
+        row_pixel = 0
+        column_pixel = 0
+        swap_color = False
+        for i in range(64):
             self._square.append(pygame.Rect(row_pixel, column_pixel, self._width//8, self._height//8))
-            self._square[i].fill
-            if (row_pixel > self._width - 1):
-                row_pixel += self._width//8
-            else: 
+            pygame.draw.rect(self._displaysurface, self._color, self._square[i])
+            
+            if (row_pixel > self._width - 101):
                 column_pixel += self._height//8
                 row_pixel = 0
-        
-        self._displaysurface = pygame.display.set_mode((self._width, self._height))
+                continue;
+            else:
+                row_pixel += self._width//8
+            if swap_color == 0:
+                self._color.g = self._color.g - 40
+                swap_color = True
+            else: 
+                self._color.g = self._color.g + 40
+                swap_color = False
+        pygame.display.flip()
         pygame.display.set_caption("Rifle Chess")
-    
-    
-    
 
+    def draw_pieces(self):
+        rook = pg.image.load('images/rook.png').convert()
+
+if __name__ == '__main__':
+    g = Game()
+    g.draw_board()
