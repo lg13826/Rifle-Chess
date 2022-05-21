@@ -75,13 +75,9 @@ class Game:
                     self._displaysurface.blit(self._bishopimg, bishop)
 
 
-        
-        #update
-        pygame.display.update()
-        x = 5 + 2
-
-
 if __name__ == '__main__':
     g = Game()
     g.draw_board()
     g.draw_pieces()
+    while True:
+        pass
